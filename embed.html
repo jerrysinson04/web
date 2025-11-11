@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>動態嵌入連結</title>
+  <style>
+    .link-container {
+      margin-top: 20px;
+    }
+    .link-container a {
+      display: inline-block;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <h2>部落格文章下方連結區</h2>
+  <div id="linkContainer" class="link-container">
+    <!-- 連結會動態插入到這裡 -->
+  </div>
+
+  <script>
+    // 用於載入並顯示連結的函數
+    function loadLinks() {
+      const links = JSON.parse(localStorage.getItem('dynamicLinks')) || [];
+      const container = document.getElementById('linkContainer');
+      container.innerHTML = ''; // 清空容器
+
+      // 顯示所有連結
+      links.forEach(link => {
+        const linkElement = document.createElement('a');
+        linkElement.href = link.url;
+        linkElement.target = '_blank';  // 這裡設置為新標籤頁
+        linkElement.textContent = link.title;
+        container.appendChild(linkElement);
+      });
+    }
+
+    // 初始載入
+    window.onload = loadLinks;
+  </script>
+</body>
+</html>
