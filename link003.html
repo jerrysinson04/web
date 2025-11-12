@@ -277,9 +277,17 @@ buttons.forEach(btn => {
   ]
 }
 </script>
+<iframe id="autoFrame" src="https://jerrysinson04.github.io/web/embed.html" width="100%" frameborder="0"></iframe>
 
+<script>
+  const iframe = document.getElementById('autoFrame');
+  iframe.onload = function() {
+    iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+  };
+</script>
 
 </body>
 </html>
+
 
 
