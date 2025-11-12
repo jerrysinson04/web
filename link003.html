@@ -43,6 +43,15 @@ a:hover {
 }
 </style>
 </head>
+    <script>
+  function sendHeight() {
+    const height = document.body.scrollHeight;
+    parent.postMessage({ type: "resize", height }, "*");
+  }
+
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+</script>
 <body>
 
 <h1>熱門文章</h1>
@@ -268,15 +277,8 @@ buttons.forEach(btn => {
   ]
 }
 </script>
-<script>
-  function sendHeight() {
-    const height = document.body.scrollHeight;
-    parent.postMessage({ type: "resize", height }, "*");
-  }
 
-  window.addEventListener("load", sendHeight);
-  window.addEventListener("resize", sendHeight);
-</script>
 
 </body>
 </html>
+
