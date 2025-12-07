@@ -1,3 +1,29 @@
+<script>
+    function sendHeightToParent() {
+        // 獲取頁面內容的實際高度（取 body 和 documentElement 中較大值，確保完整性）
+        const contentHeight = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight
+        );
+        
+        // 將高度數據包裝成物件發送到父頁面
+        // '*' 代表允許任何父頁面接收，如果您知道父頁面網址，請替換成確切的網址以提高安全性
+        // 例如：'https://your-blog-domain.com'
+        window.parent.postMessage({ height: contentHeight }, '*');
+    }
+
+    // 1. 頁面載入完成後發送一次高度
+    window.addEventListener('load', sendHeightToParent);
+
+    // 2. 延遲 1 秒後再次發送高度
+    // 這用於處理延遲載入的元素（如圖片、廣告或字體）可能導致的高度變化
+    setTimeout(sendHeightToParent, 1000); 
+
+    // 3. 監聽視窗大小變化 (可選，但推薦)
+    // 如果子頁面內有響應式設計導致內容高度改變，它會再次通知父頁面
+    window.addEventListener('resize', sendHeightToParent);
+</script>
 <h2>【消費情報】</h2>
 <h3><span style="text-decoration: underline; color: #ff0000;"><a href="https://www.concerngo.com/categories/hotitems" title="concern 康生健康科技 最新消費情報" target="_blank"><span style="color: #ff0000; text-decoration: underline;">👉看看有什麼3折好康!!</span></a></span></h3>
 <a href="https://www.concerngo.com/categories/hotitems" target="_blank"><img src="https://shoplineimg.com/5b3d75164e22a6b508005060/692d36467a23601814d96649/2160x.webp?source_format=jpg" width="100%" alt="消費情報" title="concern 康生健康科技 最新消費情報" class="null" /></a>
+
