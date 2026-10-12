@@ -1,293 +1,145 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>熱門文章</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.8;
-    margin: 20px;
-    background-color: #f9f9f9;
-}
-.article {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
-}
-button {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    text-align: left;
-    width: 100%;
-    outline: none;
-    padding: 5px 0;
-}
-button:hover {
-    color: #0073e6;
-}
-.content {
-    display: none;
-    padding: 5px 15px;
-    font-size: 15px;
-    color: #333;
-}
-a {
-    color: #0073e6;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
-</style>
-</head>
-    <script>
-  function sendHeight() {
-    const height = document.body.scrollHeight;
-    parent.postMessage({ type: "resize", height }, "*");
-  }
 
-  window.addEventListener("load", sendHeight);
-  window.addEventListener("resize", sendHeight);
-</script>
+<html>
+  <head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新動態</title>
+    
+    <style>
+        /* ========================================= */
+        /* 1. 全局設定與重置 (Reset) */
+        /* ========================================= */
+        body, html {
+            margin: 0;
+            padding: 0;
+            /* 讓網頁內容從邊緣開始，避免預設空白 */
+        }
+        
+        /* ========================================= */
+        /* 2. 視窗高度設定 (vh 單位應用) */
+        /* ========================================= */
+        /* 設置 HTML 和 BODY 佔滿整個視窗高度 */
+        html, body {
+            height: 100%; 
+        }
+
+        /* 首屏區塊：設定高度佔滿瀏覽器視窗 */
+        .hero-section {
+            height: 100vh; /* 佔滿 100% 視窗高度 */
+            background-color: #2c3e50; /* 深藍色背景 */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        /* ========================================= */
+        /* 3. 主要內容區 (自適應內容與最小高度) */
+        /* ========================================= */
+        .main-content {
+            width: 80%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ecf0f1; /* 淺灰色背景 */
+            /* 設置最小高度，確保區塊視覺上不會太小 */
+            min-height: 500px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ========================================= */
+        /* 4. 響應式 IFRAME 設定 */
+        /* ========================================= */
+        .iframe-container {
+            width: 100%;
+            margin-top: 20px;
+            border: 2px dashed #3498db;
+            padding: 5px;
+        }
+        
+        /* IFRAME 樣式：寬度 100% 自適應，固定高度 400px */
+        .iframe-container iframe {
+            width: 100%; /* 寬度自適應父容器 */
+            height: 400px; /* 固定高度 400px */
+            border: none;
+            display: block;
+        }
+    </style>
+  </head>
 <body>
-
-<h1>熱門文章</h1>
-
-<!-- 文章列表開始 -->
-<div class="article"><button>👉 勝率UP！もひケつ(Pachinko)日本彈珠台攻略指南</button>
-  <div class="content">
-    想提升もひケつ勝率？本指南從基礎玩法到進階策略全面解析，包括觀察機台釘位、挑選高回轉率台以及合理資金管理，協助玩家每次遊玩都更有把握。掌握這些技巧，你也能成為高手。<br>
-    <a href="https://blog.udn.com/jerrysinson/183217543" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 金寶寶麻將玩法攻略｜線上麻將技巧與平台推薦</button>
-  <div class="content">
-    金寶寶娛樂城推出線上麻將遊戲，結合傳統玩法與創新功能，適合新手與高手。文章解析各種玩法技巧、勝率策略與推薦場次，協助玩家快速上手並掌握麻將精髓。<br>
-    <a href="https://blog.udn.com/jerrysinson/183140643" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 捕魚機遊戲，線上玩法6大技巧攻略!!下注風險分析</button>
-  <div class="content">
-    本文提供捕魚機遊戲技巧與風險分析，包含試玩策略、下注注意事項及提升勝率方法。玩家可透過本文了解捕魚機玩法，學會遊戲策略，同時避免過度沉迷。<br>
-    <a href="https://blog.udn.com/jerrysinson/181802562" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 百家樂攻略，3大出牌技巧、下注策略風險分析！線上百家樂投注勝率提高訣竅!!</button>
-  <div class="content">
-    百家樂起源於義大利，玩法簡單但策略多樣。本文解析三大出牌技巧、下注策略及風險分析，協助玩家提高線上百家樂投注勝率，並了解遊戲心理與資金管理要點。<br>
-    <a href="https://blog.udn.com/jerrysinson/183444050" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 博奕娛樂城 6款遊戲平台 風險分析</button>
-  <div class="content">
-    分析6款熱門博奕娛樂城平台的風險與青少年心理影響，提供玩家選擇時的參考指標，幫助理解模擬賭博遊戲背後的機制與潛在影響。<br>
-    <a href="https://blog.udn.com/jerrysinson/182984199" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 パチンコのゲームプレイに関する研究</button>
-  <div class="content">
- 日本の街に当たり前のようにあるパチンコ。プレイヤーとして長く打っていると、ただの「ゲーム」や「暇つぶし」以上だと感じます。本稿は、体験ベースで得た実感と、公開されている解析・考察を照合し、遊技の魅力とリスク、そして上手な付き合い方をまとめたものです。本文では、実務的な機種情報や台紹介、朝イチの立ち回り、天井・有利区間、設定判別と高設定示唆、上乗せ・フリーズなどのキーワードも取り上げます<br>
-    <a href="https://blog.udn.com/jerrysinson/183253953" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 吃角子老虎，遊戲規則公平嗎?請注意老虎機誤導過度下注~~</button>
-  <div class="content">
-    探討老虎機設計與公平性問題，提醒玩家避免誤導下注，理解遊戲機率及規則，協助玩家保持理性娛樂並掌握遊戲風險。<br>
-    <a href="https://blog.udn.com/jerrysinson/182293648" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 詐騙集團、非法博弈勾結第三方平台洗錢：現象與破解策略</button>
-  <div class="content">
-    說明網路詐騙及非法博弈團體如何利用第三方平台洗錢，解析常見手法及防範策略，提供玩家與業者重要的警示與防護建議。<br>
-    <a href="https://blog.udn.com/jerrysinson/183543570" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 彈珠遊戲，10大致勝攻略，彈珠賭博下注風險與合法性分析</button>
-  <div class="content">
-    介紹彈珠機、柏青哥及線上彈珠博弈遊戲技巧，分析下注風險與合法性，幫助玩家理性遊玩並提升勝率。<br>
-    <a href="https://blog.udn.com/jerrysinson/182607246" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 【RTP高 + 好評玩法】熱門老虎機排行榜 Top 100</button>
-  <div class="content">
-    根據RTP與玩家回饋，整理市場上最受歡迎的100款高回報老虎機遊戲，幫助玩家挑選熱門與高收益的遊戲平台。<br>
-    <a href="https://blog.udn.com/jerrysinson/182774856" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 瘋狂球「彈珠賽車」新潮流，6款超炫彈珠線上遊戲介紹</button>
-  <div class="content">
-    數位彈珠台與彈珠賽車概念結合，文章介紹6款線上彈珠遊戲，玩家可體驗彈珠在不同軌道快速奔馳與押注樂趣。<br>
-    <a href="https://blog.udn.com/jerrysinson/182053419" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 線上街機拉霸是什麼？玩法特色與風險一次看</button>
-  <div class="content">
-    解析線上街機拉霸遊戲規則、玩法特色與風險，提供完整攻略與勝率建議，協助玩家理性娛樂。<br>
-    <a href="https://blog.udn.com/jerrysinson/183089994" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 KYC是什麼?博弈遊戲娛樂城，為什麼需要KYC?</button>
-  <div class="content">
-    說明博弈遊戲中KYC的重要性，包含法規遵循、用戶身份驗證及風險控制，讓玩家理解安全與合法的重要性。<br>
-    <a href="https://blog.udn.com/jerrysinson/182770807" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 線上賭博網站，全球前20大博弈遊戲平台玩什麼?</button>
-  <div class="content">
-    本文整理全球前20大線上賭博平台，介紹熱門遊戲種類、玩法與VIP制度，協助玩家了解市場趨勢與平台特色。<br>
-    <a href="https://blog.udn.com/jerrysinson/183386459" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 捕魚機抽水率影響你的輸贏！學會這些，你的遊戲策略更有勝算</button>
-  <div class="content">
-    介紹捕魚機抽水率概念、影響因素與合法性問題，提供策略與範例，幫助玩家選擇合適遊戲以提升勝率。<br>
-    <a href="https://blog.udn.com/jerrysinson/183151397" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 線上賭博法律懶人包：你必須知道的各國賭博法規概況</button>
-  <div class="content">
-    概述全球賭博法律差異，提醒玩家及博弈業者注意合法與非法範圍，並提供各國法規簡明懶人包。<br>
-    <a href="https://blog.udn.com/jerrysinson/183311040" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 老虎機，網路玩法，有哪幾種?</button>
-  <div class="content">
-    介紹網路老虎機多種玩法與變化，包含傳統老虎機、線上麻將及其策略，讓玩家掌握遊戲選擇與操作技巧。<br>
-    <a href="https://blog.udn.com/jerrysinson/182531551" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 包網是什麼?API租賃是什麼?要注意什麼，怎麼經營，有哪些法律風險，這篇通通告訴你</button>
-  <div class="content">
-    分析包網及API租賃的概念、經營方法與法律風險，提供玩家與業者重要參考，理解線上博弈平台運作模式。<br>
-    <a href="https://blog.udn.com/jerrysinson/182426591" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 遊戲點數卡詐騙、博弈娛樂城詐騙，常見手法分析，提醒玩家要小心</button>
-  <div class="content">
-    整理遊戲點數卡與娛樂城詐騙常見手法及新聞案例，提醒玩家防範損失，保障財產安全。<br>
-    <a href="https://blog.udn.com/jerrysinson/183255238" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 老虎機app 遊戲下載，中大獎迷思，老虎機玩法9大風險分析</button>
-  <div class="content">
-    提供線上老虎機遊戲技巧、攻略與9大風險分析，幫助玩家提升遊戲體驗與獲勝機率，理解遊戲運作與資金管理。<br>
-    <a href="https://blog.udn.com/jerrysinson/181715593" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 線上街機背後的博弈金流揭秘</button>
-  <div class="content">
-    深入解析線上街機遊戲金流運作，玩家如何使用LINE儲值及客服提領獎金，揭示潛在押注機制與風險。<br>
-    <a href="https://blog.udn.com/jerrysinson/183145842" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 博弈娛樂城遊戲種類介紹</button>
-  <div class="content">
-    介紹博弈娛樂城多種遊戲選擇，從老虎機到真人荷官遊戲，以及創新抓魚遊戲，滿足玩家各種娛樂需求。<br>
-    <a href="https://blog.udn.com/jerrysinson/184071169" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 老虎機遊戲9大技巧！免費的最貴，注意下注風險</button>
-  <div class="content">
-    教玩家如何在線上老虎機中提高勝率，了解免費與付費玩法的差異，掌握旋轉技巧與下注風險管理。<br>
-    <a href="https://blog.udn.com/jerrysinson/181652609" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 麻將遊戲玩法技巧攻略，13款線上麻將遊戲推薦！</button>
-  <div class="content">
-    教玩家掌握線上麻將基本技巧，熟悉出牌策略與操作技巧，適合初學者與競技玩家提升勝率。<br>
-    <a href="https://blog.udn.com/jerrysinson/181849822" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 親朋好友賭癮難戒!!台灣有哪些戒賭癮機構，可以幫他們?</button>
-  <div class="content">
-    提供台灣戒賭機構資訊及方法，協助賭徒脫離困境，從心理與行為層面提供實務建議。<br>
-    <a href="https://blog.udn.com/jerrysinson/182589991" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 包你發《麻雀無雙》玩法攻略｜線上麻將規則、技巧與玩家評價</button>
-  <div class="content">
-    介紹《麻雀無雙》玩法規則、技巧與玩家評價，協助新手與老手掌握策略與遊戲樂趣，快速上手並享受競技體驗。<br>
-    <a href="https://blog.udn.com/jerrysinson/182916834" target="_blank">閱讀原文</a>
-  </div>
-</div>
-
-<div class="article"><button>👉 街機博弈勝率的七大技巧：達人教你如何提高勝率</button>
-  <div class="content">
-    分享線上街機博弈的七大技巧，幫助玩家掌握規則、控制投注額，提升遊戲勝率與娛樂樂趣。<br>
-    <a href="https://blog.udn.com/jerrysinson/183139592" target="_blank">閱讀原文</a>
-  </div>
-</div>
-<!-- 文章列表結束 -->
-
-
-<script>
-const buttons = document.querySelectorAll('button');
-buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const content = btn.nextElementSibling;
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
-    });
-});
-</script>
-
-<!-- JSON-LD 結構化數據 -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "itemListElement": [
-    { "position":1, "url":"https://blog.udn.com/jerrysinson/183217543", "name":"勝率UP！もひケつ(Pachinko)日本彈珠台攻略指南", "description":"想提升もひケつ勝率？本指南從基礎玩法到進階策略全面解析，包括觀察機台釘位、挑選高回轉率台以及合理資金管理，協助玩家每次遊玩都更有把握。掌握這些技巧，你也能成為高手。" },
-    { "position":2, "url":"https://blog.udn.com/jerrysinson/183140643", "name":"金寶寶麻將玩法攻略｜線上麻將技巧與平台推薦", "description":"金寶寶娛樂城推出線上麻將遊戲，結合傳統玩法與創新功能，適合新手與高手。文章解析各種玩法技巧、勝率策略與推薦場次，協助玩家快速上手並掌握麻將精髓。" },
-    { "position":3, "url":"https://blog.udn.com/jerrysinson/181802562", "name":"捕魚機遊戲，線上玩法6大技巧攻略!!下注風險分析", "description":"本文提供捕魚機遊戲技巧與風險分析，包含試玩策略、下注注意事項及提升勝率方法。玩家可透過本文了解捕魚機玩法，學會遊戲策略，同時避免過度沉迷。" },
-    { "position":4, "url":"https://blog.udn.com/jerrysinson/183444050", "name":"百家樂攻略，3大出牌技巧、下注策略風險分析！線上百家樂投注勝率提高訣竅!!", "description":"百家樂起源於義大利，玩法簡單但策略多樣。本文解析三大出牌技巧、下注策略及風險分析，協助玩家提高線上百家樂投注勝率，並了解遊戲心理與資金管理要點。" },
-    { "position":5, "url":"https://blog.udn.com/jerrysinson/182984199", "name":"博奕娛樂城 6款遊戲平台 風險分析", "description":"分析6款熱門博奕娛樂城平台的風險與青少年心理影響，提供玩家選擇時的參考指標，幫助理解模擬賭博遊戲背後的機制與潛在影響。" },
-    { "position":6, "url":"https://blog.udn.com/jerrysinson/183253953", "name":"もひケつ攴っーゑよオさ廴関ⅸぉ研究", "description":"日本攴街廴当冂え前攴う⑩廴⑥ぉもひケつ相關研究，透過分析遊戲機制與玩家行為，提供完整的體驗與解析，協助玩家深入理解もひケつ遊戲的魅力與策略。" },
-    { "position":7, "url":"https://blog.udn.com/jerrysinson/182293648", "name":"吃角子老虎，遊戲規則公平嗎?請注意老虎機誤導過度下注~~", "description":"探討老虎機設計與公平性問題，提醒玩家避免誤導下注，理解遊戲機率及規則，協助玩家保持理性娛樂並掌握遊戲風險。" },
-    { "position":8, "url":"https://blog.udn.com/jerrysinson/183543570", "name":"詐騙集團、非法博弈勾結第三方平台洗錢：現象與破解策略", "description":"說明網路詐騙及非法博弈團體如何利用第三方平台洗錢，解析常見手法及防範策略，提供玩家與業者重要的警示與防護建議。" },
-    { "position":9, "url":"https://blog.udn.com/jerrysinson/182607246", "name":"彈珠遊戲，10大致勝攻略，彈珠賭博下注風險與合法性分析", "description":"介紹彈珠機、柏青哥及線上彈珠博弈遊戲技巧，分析下注風險與合法性，幫助玩家理性遊玩並提升勝率。" },
-    { "position":10, "url":"https://blog.udn.com/jerrysinson/182774856", "name":"【RTP高 + 好評玩法】熱門老虎機排行榜 Top 100", "description":"根據RTP與玩家回饋，整理市場上最受歡迎的100款高回報老虎機遊戲，幫助玩家挑選熱門與高收益的遊戲平台。" }
-    /* JSON-LD 同理加入 position 11-27 */
-  ]
-}
-</script>
-
-
-
-</body>
+<header class="article-header" style="box-sizing: border-box; display: block; font-size: 0px; margin-bottom: 16px; color: rgb(0, 0, 0); font-family: &quot;New Microsoft JhengHei&quot;, &quot;Microsoft JhengHei&quot;, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+    <h2 class="article-sub-title" style="box-sizing: border-box; margin-top: -8px; margin-bottom: 16px; font-weight: normal; line-height: 1.3; font-size: 32px; font-family: &quot;Microsoft YaHei&quot;, sans-serif; color: rgb(85, 85, 85);"><br></h2>
+    <h1 class="article-title" style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px; font-weight: normal; line-height: 1.3; font-size: 48px; font-family: &quot;Microsoft YaHei&quot;, sans-serif; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">職場達人－白如娟用按摩 把健康帶著走</h1>
+    <h2 class="article-sub-title" style="box-sizing: border-box; margin-top: -8px; margin-bottom: 16px; font-weight: normal; line-height: 1.3; font-size: 32px; font-family: &quot;Microsoft YaHei&quot;, sans-serif; color: rgb(85, 85, 85); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">康生健康科技董事長</h2>
+    <div class="row align-items-center" style="box-sizing: border-box; display: flex; flex-wrap: wrap; margin-right: -8px; margin-left: -8px; align-items: center !important;">
+        <div class="col-md" style="box-sizing: border-box; position: relative; width: 925px; padding-right: 8px; padding-left: 8px; flex-basis: 0px; flex-grow: 1; max-width: 100%;">
+            <div class="meta-info-wrapper" style="box-sizing: border-box; height: 38.7969px; min-height: 30px; padding: 8px 0px; border-top: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); display: flex; align-items: center;">
+                <div class="meta-info" style="box-sizing: border-box; margin-top: 0px; font-size: 0px; font-family: Verdana, &quot;Microsoft JhengHei&quot;, sans-serif;"><time datetime="2026-10-10 04:10" style="box-sizing: border-box; font-size: 16px; line-height: 1.3; border-left-width: medium; border-left-style: none; border-left-color: currentcolor; display: inline-block; padding: 0px 10px 0px 0px; vertical-align: middle; position: relative; white-space: nowrap;"><span class="hour" style="box-sizing: border-box;">04:10</span><span class="date" style="box-sizing: border-box; margin-left: 10px;">2026/10/10</span></time>
+                    <div class="source" style="box-sizing: border-box; font-size: 16px; line-height: 1.3; border-left: 1px solid rgb(204, 204, 204); display: inline-block; padding: 0px 10px; vertical-align: middle;">工商時報</div>
+                    <div class="author" style="box-sizing: border-box; font-size: 16px; line-height: 1.3; border-left: 1px solid rgb(204, 204, 204); display: inline-block; padding: 0px 10px; vertical-align: middle;">劉朱松</div>
+                    <div class="donation" style="box-sizing: border-box; font-size: 16px; line-height: 1.3; border-left: 1px solid rgb(204, 204, 204); display: inline-block; padding: 0px 0px 0px 10px; vertical-align: middle; min-height: unset; margin: unset; clear: unset; position: relative; top: 1px;"><br></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-auto" style="box-sizing: border-box; position: relative; width: auto; padding-right: 8px; padding-left: 8px; flex: 0 0 auto; max-width: 100%;">
+            <div class="social-share" style="box-sizing: border-box; position: relative;">
+                <ul style="box-sizing: border-box; margin: -5px; list-style: none; padding: 0px; font-size: 0px; text-align: right;">
+                    <li class="member-function add-bookmark" data-status="0" style="box-sizing: border-box; display: inline-block; margin: 5px 7px 5px 5px; border-radius: 0px; font-size: 0px; position: relative; overflow: visible; vertical-align: top; padding-right: 12px; border-right: 1px solid rgb(204, 204, 204);"><br></li>
+                    <li class="facebook" style="box-sizing: border-box; display: inline-block; margin: 5px; border-radius: 0px; font-size: 0px; position: relative; overflow: hidden;">Facebook</li>
+                    <li class="line" style="box-sizing: border-box; display: inline-block; margin: 5px; border-radius: 0px; font-size: 0px; position: relative; overflow: hidden;">Line</li>
+                    <li class="threads" style="box-sizing: border-box; display: inline-block; margin: 5px; border-radius: 0px; font-size: 0px; position: relative; overflow: hidden;">Threads</li>
+                    <li class="copy-url" style="box-sizing: border-box; display: inline-block; margin: 5px; border-radius: 0px; font-size: 0px; position: relative; overflow: hidden;">複製連結</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="column-left" style="box-sizing: border-box; float: left; width: calc(100% - 316px); color: rgb(0, 0, 0); font-family: &quot;New Microsoft JhengHei&quot;, &quot;Microsoft JhengHei&quot;, sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+    <div class="main-figure" style="box-sizing: border-box; margin-bottom: 16px;">
+        <figure data-media-type="photo" style="box-sizing: border-box; display: block; margin: 0px 0px 1rem;">
+            <div class="photo-container" style="box-sizing: border-box; position: relative;"><img class="photo" src="https://images.chinatimes.com/newsphoto/2026-10-10/1024/ALDA00_P_01_01.jpg" alt="康生健康科技董事長白如娟。圖／劉朱松" width="1024" height="768" style="box-sizing: border-box; vertical-align: middle; border-style: none; display: block; width: 924px; height: auto; margin: auto;"></div>
+            <figcaption style="box-sizing: border-box; display: block; border-bottom: 1px solid rgb(204, 204, 204); padding: 15px; font-size: 0.8889em; line-height: 1.5;">康生健康科技董事長白如娟。圖／劉朱松</figcaption>
+        </figure>
+    </div>
+    <div class="row" style="box-sizing: border-box; display: flex; flex-wrap: wrap; margin-right: -8px; margin-left: -8px;">
+        <div class="d-none d-xl-block col-xl-1" style="box-sizing: border-box; position: relative; width: 78.3281px; padding-right: 8px; padding-left: 8px; flex: 0 0 8.33333%; max-width: 8.33333%; display: block !important;">
+            <div class="social-share-wrapper" style="box-sizing: border-box; position: relative; height: calc(100% - 20px); margin-bottom: 20px;">
+                <div class="social-share fixed" style="box-sizing: border-box; position: relative; width: 40px; transition: 0.3s 0.1s;">
+                    <ul style="box-sizing: border-box; margin: -5px; list-style: none; padding: 0px; font-size: 0px; text-align: right;">
+                        <li class="member-function add-bookmark" data-status="0" style="box-sizing: border-box; display: inline-block; margin: 5px 5px 7px; border-radius: 0px; font-size: 0px; position: relative; overflow: visible; vertical-align: top; padding-right: 0px; border-right-width: medium; border-right-style: none; border-right-color: currentcolor; padding-bottom: 12px; border-bottom: 1px solid rgb(204, 204, 204);"><br></li>
+                        <li class="facebook" style="box-sizing: border-box; display: inline-block; margin: 5px; border-radius: 0px; font-size: 0px; position: relative; overflow: hidden;">Facebook</li>
+                        <li class="line" style="box-sizing: border-box; display: inline-block; margin: 5px; border-radius: 0px; font-size: 0px; position: relative; overflow: hidden;">Line</li>
+                        <li class="threads" style="box-sizing: border-box; display: inline-block; margin: 5px; border-radius: 0px; font-size: 0px; position: relative; overflow: hidden;">Threads</li>
+                        <li class="copy-url" style="box-sizing: border-box; display: inline-block; margin: 5px; border-radius: 0px; font-size: 0px; position: relative; overflow: hidden;">複製連結</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-11" style="box-sizing: border-box; position: relative; width: 861.656px; padding-right: 8px; padding-left: 8px; flex: 0 0 91.6667%; max-width: 91.6667%;">
+            <div class="article-function" style="box-sizing: border-box; padding: 2px 15px; background: rgb(238, 238, 238); display: flex; align-items: baseline; justify-content: flex-end; margin-bottom: 16px; font-size: 18px;">
+                <div class="font-size-setting" style="box-sizing: border-box; line-height: 1.5;"><br></div>
+            </div>
+            <div class="article-body" itemprop="articleBody" style="box-sizing: border-box; overflow: hidden;">
+                <figure style="box-sizing: border-box; display: block; margin: 0px 0px 16px; clear: both;">
+                    <div class="photo-container" style="box-sizing: border-box; position: relative;"><img class="photo" loading="lazy" src="https://images.chinatimes.com/newsphoto/2026-10-10/CLIPPING/1024/ALDA00_T_01_03.jpg" alt="康生健康科技董事長白如娟／達人小檔案" width="1024" height="527" style="box-sizing: border-box; vertical-align: middle; border-style: none; display: block; width: 845.656px; height: auto; margin: auto;"></div>
+                    <figcaption style="box-sizing: border-box; display: block; border-bottom: 1px solid rgb(204, 204, 204); padding: 15px; font-size: 0.8889em; line-height: 1.5;">康生健康科技董事長白如娟／達人小檔案</figcaption>
+                </figure>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">康生健康科技（CONCERN）從小型按摩器材起家，逐步擴大健康生活版圖，董事長白如娟提出下一階段主張「健康帶著走」，透過小型化、無線化、智能化與生活化，讓健康不再被大型設備或固定空間綁住，而能跟著消費者走進辦公、居家、運動與旅行。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">白如娟表示，公司不跟大品牌比「大」，反而把「小」做成差異化，「別人做大，我就把小做到最好」；面對國內外大型按摩椅品牌競爭，白如娟選擇不比體積，而是比誰更貼近生活。她觀察，現代人的放鬆需求，散落在一天不同時刻：上班久坐、3C產品使用、運動後放鬆，到晚上回家休息，都有不同需求。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">白如娟強調，康生因此把大型設備上的功能，拆解到不同產品與場景，逐步形成「市場差異化、價格親民化、功能實用化及產品小型化」四大方向。對她而言，「小」不只是尺寸，而是降低健康生活的使用門檻。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">「健康跟著人走」，不是口號，康生把按摩帶進每一天，隨著產品線發展，進一步從小型化，走向無線化、移動化與生活化。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">近期的熱感筋膜槍、無線按摩枕與按摩小沙發，正好代表三個方向，包括熱感筋膜槍兼具小巧、手持與溫熱功能，並強調「隨身化」。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">無線按摩枕拿掉電線與插座限制，從客廳、臥室、辦公室到旅途中都能使用，走向「移動化」；按摩小沙發則把按摩融入家具，結合坐姿支撐、舒適包覆與石墨烯溫熱設計，讓休息、閱讀或追劇時，也能自然享受按摩，走向「生活化」。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">白如娟說：「不是要求消費者走向健康器材，而是讓健康主動走進消費者的生活」，並強調產品創新，不是一味堆疊功能，而是從生活場景找需求，以「一個生活情境、一個健康解方」，重新思考產品。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">白如娟早年曾任職新加坡林麥公司總經理秘書，之後進入中國前十大出口按摩器材製造大廠，擔任高階主管，累積產品開發、生產製造、品質、供應鏈與國際市場經驗。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">返台創業後，白如娟才真正體會，「會做產品」與「會做品牌」，是兩回事。康生2014年從電商平台起步，品牌初期，仍被視為「白牌」，在通路碰壁、商品線也被嫌不夠完整。直至2016年成為重要營運的轉折點。白如娟親自操刀，將資源集中電子商務，產品陸續進入momo、PChome、Yahoo、蝦皮，及東森等平台。電商帶來的不只是訂單，更讓康生快速掌握價格、功能與使用回饋，直接轉化為產品開發依據。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">此後，白如娟提出「一年打下一個通路」：2017年拓展禮贈品、電視購物與企業福委會市場；2018年參與知名人壽健康專案，在2.5萬名員工中，康生椅墊及按摩腳機，獲選約9,900筆、接近4成，之後再跨入量販、3C、生活百貨與實體體驗，建立全通路布局。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">康生早期邀請謝金燕擔任「美麗代言人」，以鮮明、活力與高辨識度打開知名度；2020年邀請醫師林榮志，擔任健康代言人，2021年與大甲媽祖聯名健康產品，品牌逐漸從功能走向健康與生活態度。進入下一階段，康生邀請AKIRA擔任品牌代言人，以健康、質感、家庭感與國際化形象，呼應「健康帶著走」的新定位。</p>
+                <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 16px;">達人座右銘：人生沒有白走的路，曾經吃過的苦、受過的挫折，最後都會成為往前走的力量。</p>
+            </div>
+        </div>
+    </div>
+</div></body>
 </html>
-
-
-
-
-
-
-
-
