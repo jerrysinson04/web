@@ -29,12 +29,11 @@
         }
         .top-btn:hover { background-color: #c0392b; }
 
-        /* 2. 可滾動的主視窗區域（用來控制卷軸移動） */
+        /* 2. 可滾動的主視窗區域 */
         #scroll-container {
             width: 100%;
             height: calc(100vh - 50px); /* 扣除上方按鈕高度 */
             overflow-y: auto; /* 允許這個框架上下滾動 */
-            scroll-behavior: smooth;
         }
 
         /* 3. 條列新聞與新聞顯示區 */
@@ -53,11 +52,11 @@
         }
         #list-area a:hover { color: #e74c3c; }
 
-        /* 新聞框架（設定足夠的高度，讓外層容器的卷軸可以往下滑動） */
+        /* 新聞框架（給予足夠高度，讓卷軸可以一路滑到底） */
         #news-frame {
             display: none;
             width: 100%;
-            height: 2000px; /* 給予足夠高度，讓 #scroll-container 產生卷軸可下移 */
+            height: 2500px; 
             border: none;
         }
     </style>
@@ -66,7 +65,7 @@
 
     <!-- 永遠固定在最上方的按鈕 -->
     <div class="top-btn" onclick="goBack()">
-        📰 【Concern 新聞】 👉返回條列畫面
+        📰 【Concern 新聞】 返回條列畫面
     </div>
 
     <!-- 帶有卷軸的框架容器 -->
@@ -92,27 +91,76 @@
     </div>
 
     <script>
+        let isAutoScrolling = false;
+        let animId = null;
+
+        // 開始緩慢自動下滑
+        function startAutoScroll() {
+            const container = document.getElementById('scroll-container');
+            if (isAutoScrolling) return;
+            
+            isAutoScrolling = true;
+
+            function scrollStep() {
+                if (!isAutoScrolling) return;
+                const maxScroll = container.scrollHeight - container.clientHeight;
+                
+                // 如果還沒滑到底部，繼續往下加 1.5 像素
+                if (container.scrollTop < maxScroll - 2) {
+                    container.scrollTop += 0.5; 
+                    animId = requestAnimationFrame(scrollStep);
+                } else {
+                    isAutoScrolling = false;
+                }
+            }
+            animId = requestAnimationFrame(scrollStep);
+        }
+
+        // 停止自動下滑
+        function stopAutoScroll() {
+            isAutoScrolling = false;
+            if (animId) {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        }
+
+        // 點擊新聞時觸發
         function openAndScroll() {
-            // 1. 顯示新聞框架、隱藏條列清單
             document.getElementById('list-area').style.display = 'none';
             document.getElementById('news-frame').style.display = 'block';
             
-            // 2. 延遲一點點等畫面切換後，直接移動「這個框架容器」的卷軸往下 300px
+            // 點進去的第一個畫面：精準停在 300px 位置，靜止不動讓讀者閱讀
             setTimeout(function() {
                 document.getElementById('scroll-container').scrollTop = 300;
             }, 300);
         }
 
+        // 返回清單
         function goBack() {
-            // 1. 隱藏新聞框架、重新顯示條列清單
+            stopAutoScroll();
             const frame = document.getElementById('news-frame');
             frame.style.display = 'none';
-            frame.src = 'about:blank'; // 清空畫面
+            frame.src = 'about:blank';
             document.getElementById('list-area').style.display = 'block';
-            
-            // 2. 卷軸歸零回到最上方
             document.getElementById('scroll-container').scrollTop = 0;
         }
+
+        // 監聽互動與游標事件
+        const container = document.getElementById('scroll-container');
+
+        // 1. 游標「進入」畫面時（或手動滾動時） -> 停止自動滾動，方便手動閱讀
+        container.addEventListener('mouseenter', stopAutoScroll);
+        container.addEventListener('wheel', stopAutoScroll, { passive: true });
+        container.addEventListener('touchstart', stopAutoScroll, { passive: true });
+
+        // 2. 游標「離開」畫面時 -> 一旦離開，立刻開始緩慢滾動到底部
+        container.addEventListener('mouseleave', () => {
+            const maxScroll = container.scrollHeight - container.clientHeight;
+            if (container.scrollTop < maxScroll - 10 && document.getElementById('news-frame').style.display === 'block') {
+                startAutoScroll();
+            }
+        });
     </script>
 
 </body>
