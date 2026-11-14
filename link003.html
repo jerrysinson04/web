@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             font-family: "Microsoft JhengHei", sans-serif;
-            scroll-behavior: smooth;
+            background-color: #fff;
         }
 
         /* 1. 固定在最上方的按鈕 */
@@ -46,11 +46,21 @@
         
         #list-area a:hover { color: #e74c3c; }
 
-        /* 3. 內部新聞框架 (預設隱藏) */
-        #news-frame {
+        /* 3. 新聞框架外層容器（用來製造自動下移/遮蔽效果） */
+        #news-wrapper {
             display: none;
             width: 100%;
-            height: 90vh;
+            height: calc(100vh - 50px); /* 扣除按鈕高度 */
+            overflow: hidden; /* 隱藏超出範圍的部分 */
+            position: relative;
+        }
+
+        /* 4. 內部新聞框架：故意把高度加大、位置往上拉 50px，達到「自動下移 50px」的視覺效果 */
+        #news-frame {
+            width: 100%;
+            height: calc(100% + 50px); /* 增加高度補償 */
+            position: absolute;
+            top: -50px; /* 往上拉 50px，等於把新聞網頁頂部的多餘空間切掉，讓畫面自動下移停在指定位置 */
             border: none;
         }
     </style>
@@ -76,33 +86,22 @@
         <a href="javascript:void(0);" onclick="showNews('https://www.chinatimes.com/realtimenews/20181011003500-260410')">👉 「康生健康生活體驗館」明年將開放加盟體系 2018/10/11 16:43 工商時報</a>
     </div>
 
-    <!-- 點擊新聞後，用來顯示新聞的區域 -->
-    <iframe id="news-frame" src=""></iframe>
+    <!-- 點擊新聞後顯示的區域 -->
+    <div id="news-wrapper">
+        <iframe id="news-frame" src=""></iframe>
+    </div>
 
     <script>
         function showNews(url) {
             document.getElementById('list-area').style.display = 'none';
-            
-            const frame = document.getElementById('news-frame');
-            frame.style.display = 'block';
-            frame.src = url;
-            
-            // 當 iframe 載入完成後，自動將卷軸往下移動 50px
-            frame.onload = function() {
-                try {
-                    // 嘗試滾動 iframe 內部的視窗（若該新聞網站允許跨域存取）
-                    frame.contentWindow.scrollBy(0, 50);
-                } catch (e) {
-                    // 若受瀏覽器跨域安全限制，則改為將外層頁面往下滾動 50px 讓畫面精準對齊
-                    window.scrollTo({ top: 50, behavior: 'smooth' });
-                }
-            };
+            document.getElementById('news-wrapper').style.display = 'block';
+            document.getElementById('news-frame').src = url;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function backToList() {
-            const frame = document.getElementById('news-frame');
-            frame.style.display = 'none';
-            frame.src = '';
+            document.getElementById('news-wrapper').style.display = 'none';
+            document.getElementById('news-frame').src = '';
             document.getElementById('list-area').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
