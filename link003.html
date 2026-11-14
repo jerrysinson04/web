@@ -66,7 +66,7 @@
 
     <!-- 永遠固定在最上方的按鈕 -->
     <div class="top-btn" onclick="goBack()">
-        📰 【Concern 新聞】 返回條列畫面
+        📰 【Concern 新聞】 👉返回條列畫面
     </div>
 
     <!-- 帶有卷軸的框架容器 -->
@@ -97,7 +97,7 @@
             document.getElementById('list-area').style.display = 'none';
             document.getElementById('news-frame').style.display = 'block';
             
-            // 2. 延遲一點點等畫面切換後，直接移動「這個框架容器」的卷軸往下 50px
+            // 2. 延遲一點點等畫面切換後，直接移動「這個框架容器」的卷軸往下 300px
             setTimeout(function() {
                 document.getElementById('scroll-container').scrollTop = 300;
             }, 300);
