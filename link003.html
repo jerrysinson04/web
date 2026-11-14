@@ -8,28 +8,36 @@
         body, html {
             margin: 0;
             padding: 0;
+            height: 100%;
             font-family: "Microsoft JhengHei", sans-serif;
-            background-color: #fff;
+            overflow: hidden; /* 讓外層不出現多餘卷軸 */
         }
 
-        /* 1. 固定在最上方的按鈕 */
+        /* 1. 永遠固定在最上方的按鈕 */
         .top-btn {
-            position: sticky;
-            top: 0;
+            height: 50px;
+            line-height: 50px;
             background-color: #e74c3c;
             color: white;
-            padding: 12px;
             text-align: center;
             font-size: 20px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
             z-index: 100;
         }
-
         .top-btn:hover { background-color: #c0392b; }
 
-        /* 2. 清單區域 */
+        /* 2. 可滾動的主視窗區域（用來控制卷軸移動） */
+        #scroll-container {
+            width: 100%;
+            height: calc(100vh - 50px); /* 扣除上方按鈕高度 */
+            overflow-y: auto; /* 允許這個框架上下滾動 */
+            scroll-behavior: smooth;
+        }
+
+        /* 3. 條列新聞與新聞顯示區 */
         #list-area {
             padding: 20px;
             line-height: 2;
@@ -43,67 +51,67 @@
             border-bottom: 1px dashed #ccc;
             padding: 8px 0;
         }
-        
         #list-area a:hover { color: #e74c3c; }
 
-        /* 3. 新聞框架外層容器（用來製造自動下移/遮蔽效果） */
-        #news-wrapper {
+        /* 新聞框架（設定足夠的高度，讓外層容器的卷軸可以往下滑動） */
+        #news-frame {
             display: none;
             width: 100%;
-            height: calc(100vh - 50px); /* 扣除按鈕高度 */
-            overflow: hidden; /* 隱藏超出範圍的部分 */
-            position: relative;
-        }
-
-        /* 4. 內部新聞框架：故意把高度加大、位置往上拉 50px，達到「自動下移 50px」的視覺效果 */
-        #news-frame {
-            width: 100%;
-            height: calc(100% + 50px); /* 增加高度補償 */
-            position: absolute;
-            top: -50px; /* 往上拉 50px，等於把新聞網頁頂部的多餘空間切掉，讓畫面自動下移停在指定位置 */
+            height: 2000px; /* 給予足夠高度，讓 #scroll-container 產生卷軸可下移 */
             border: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- 固定按鈕 -->
-    <div class="top-btn" onclick="backToList()">
+    <!-- 永遠固定在最上方的按鈕 -->
+    <div class="top-btn" onclick="goBack()">
         📰 【Concern 新聞】 返回條列畫面
     </div>
 
-    <!-- 條列畫面 -->
-    <div id="list-area">
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20261010700147-439902')">👉 白如娟用按摩 把健康帶著走│康生健康科技董事長│2026.10.10 03:00 工商時報</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20260906700590-430503')">👉 AKIRA代言康生三大「市場獨家」按摩神器 2026.09.06 21:54 工商時報</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20260622700577-430503')">👉 康生端午居家按摩與舒壓商品 擁人氣 2026.06.22  09:56  工商時報</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20251204701950-430503')">👉 歲末「舒壓經濟」爆發！康生鎖定年度禮贈品、犒賞採購商機 │2025.12.04  20:15  工商時報</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20241217701977-430503')">👉 康生結合全國電子、台隆手創館等搶市 │2024.12.17  22:45  工商時報</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20240811700103-439901')">👉 女力發威 康生健康科技董事長白如娟 拚出小型按摩器NO.1 │2024.08.11  03:00  工商時報</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20220324700895-431401')">👉 康生發表15款以上筋膜槍新機型 成立「筋膜槍體驗館」 2022.03.24 22:57</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20211225700058-430506')">👉 白如娟從零開始 創小型按摩器新局 │2021.12.25 01:00 工商時報</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20211013701164-439803')">👉 康生計畫砸下3億元 台中市興建廠辦大樓│  2021.10.13 21:37  工商時報</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.chinatimes.com/realtimenews/20181011003500-260410')">👉 「康生健康生活體驗館」明年將開放加盟體系 2018/10/11 16:43 工商時報</a>
-    </div>
+    <!-- 帶有卷軸的框架容器 -->
+    <div id="scroll-container">
+        
+        <!-- 條列畫面 -->
+        <div id="list-area">
+            <a href="https://www.ctee.com.tw/news/20261010700147-439902" target="news_box" onclick="openAndScroll()">👉 白如娟用按摩 把健康帶著走│康生健康科技董事長│2026.10.10 03:00 工商時報</a>
+            <a href="https://www.ctee.com.tw/news/20260906700590-430503" target="news_box" onclick="openAndScroll()">👉 AKIRA代言康生三大「市場獨家」按摩神器 2026.09.06 21:54 工商時報</a>
+            <a href="https://www.ctee.com.tw/news/20260622700577-430503" target="news_box" onclick="openAndScroll()">👉 康生端午居家按摩與舒壓商品 擁人氣 2026.06.22 09:56 工商時報</a>
+            <a href="https://www.ctee.com.tw/news/20251204701950-430503" target="news_box" onclick="openAndScroll()">👉 歲末「舒壓經濟」爆發！康生鎖定年度禮贈品、犒賞採購商機 │2025.12.04 20:15 工商時報</a>
+            <a href="https://www.ctee.com.tw/news/20241217701977-430503" target="news_box" onclick="openAndScroll()">👉 康生結合全國電子、台隆手創館等搶市 │2024.12.17 22:45 工商時報</a>
+            <a href="https://www.ctee.com.tw/news/20240811700103-439901" target="news_box" onclick="openAndScroll()">👉 女力發威 康生健康科技董事長白如娟 拚出小型按摩器NO.1 │2024.08.11 03:00 工商時報</a>
+            <a href="https://www.ctee.com.tw/news/20220324700895-431401" target="news_box" onclick="openAndScroll()">👉 康生發表15款以上筋膜槍新機型 成立「筋膜槍體驗館」 2022.03.24 22:57</a>
+            <a href="https://www.ctee.com.tw/news/20211225700058-430506" target="news_box" onclick="openAndScroll()">👉 白如娟從零開始 創小型按摩器新局 │2021.12.25 01:00 工商時報</a>
+            <a href="https://www.ctee.com.tw/news/20211013701164-439803" target="news_box" onclick="openAndScroll()">👉 康生計畫砸下3億元 台中市興建廠辦大樓│ 2021.10.13 21:37 工商時報</a>
+            <a href="https://www.chinatimes.com/realtimenews/20181011003500-260410" target="news_box" onclick="openAndScroll()">👉 「康生健康生活體驗館」明年將開放加盟體系 2018/10/11 16:43 工商時報</a>
+        </div>
 
-    <!-- 點擊新聞後顯示的區域 -->
-    <div id="news-wrapper">
-        <iframe id="news-frame" src=""></iframe>
+        <!-- 新聞顯示框架 -->
+        <iframe id="news-frame" name="news_box"></iframe>
+
     </div>
 
     <script>
-        function showNews(url) {
+        function openAndScroll() {
+            // 1. 顯示新聞框架、隱藏條列清單
             document.getElementById('list-area').style.display = 'none';
-            document.getElementById('news-wrapper').style.display = 'block';
-            document.getElementById('news-frame').src = url;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('news-frame').style.display = 'block';
+            
+            // 2. 延遲一點點等畫面切換後，直接移動「這個框架容器」的卷軸往下 50px
+            setTimeout(function() {
+                document.getElementById('scroll-container').scrollTop = 300;
+            }, 300);
         }
 
-        function backToList() {
-            document.getElementById('news-wrapper').style.display = 'none';
-            document.getElementById('news-frame').src = '';
+        function goBack() {
+            // 1. 隱藏新聞框架、重新顯示條列清單
+            const frame = document.getElementById('news-frame');
+            frame.style.display = 'none';
+            frame.src = 'about:blank'; // 清空畫面
             document.getElementById('list-area').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // 2. 卷軸歸零回到最上方
+            document.getElementById('scroll-container').scrollTop = 0;
         }
     </script>
 
