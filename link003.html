@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             font-family: "Microsoft JhengHei", sans-serif;
-            scroll-behavior: smooth; /* 讓頁面切換或滾動時有平滑的動畫效果 */
+            scroll-behavior: smooth;
         }
 
         /* 1. 固定在最上方的按鈕 */
@@ -50,25 +50,22 @@
         #news-frame {
             display: none;
             width: 100%;
-            height: 90vh; /* 扣除按鈕後的高度 */
+            height: 90vh;
             border: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- 加上 ID 讓返回時可以定位到這裡 -->
-    <div id="top-anchor"></div>
-
-    <!-- 永遠固定的按鈕 -->
+    <!-- 固定按鈕 -->
     <div class="top-btn" onclick="backToList()">
-        📰▶ 【Concern 新聞總覽返回】 
+        📰 【Concern 新聞】 返回條列畫面
     </div>
 
     <!-- 條列畫面 -->
     <div id="list-area">
         <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20261010700147-439902')">👉 白如娟用按摩 把健康帶著走│康生健康科技董事長│2026.10.10 03:00 工商時報</a>
-        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20260906700590-430503')">👉 AKIRA代言康生三大<span></span>「市場獨家」按摩神器 2026.09.06 21:54 工商時報</a>
+        <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20260906700590-430503')">👉 AKIRA代言康生三大「市場獨家」按摩神器 2026.09.06 21:54 工商時報</a>
         <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20260622700577-430503')">👉 康生端午居家按摩與舒壓商品 擁人氣 2026.06.22  09:56  工商時報</a>
         <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20251204701950-430503')">👉 歲末「舒壓經濟」爆發！康生鎖定年度禮贈品、犒賞採購商機 │2025.12.04  20:15  工商時報</a>
         <a href="javascript:void(0);" onclick="showNews('https://www.ctee.com.tw/news/20241217701977-430503')">👉 康生結合全國電子、台隆手創館等搶市 │2024.12.17  22:45  工商時報</a>
@@ -83,23 +80,30 @@
     <iframe id="news-frame" src=""></iframe>
 
     <script>
-        // 切換顯示新聞，並自動滾動到最上方（標題位置）
         function showNews(url) {
-            document.getElementById('list-area').style.display = 'none';    // 隱藏清單
-            document.getElementById('news-frame').style.display = 'block';  // 顯示新聞視窗
-            document.getElementById('news-frame').src = url;                // 載入新聞網址
+            document.getElementById('list-area').style.display = 'none';
             
-            // 強制畫面滾動到最頂端（標題按鈕位置）
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const frame = document.getElementById('news-frame');
+            frame.style.display = 'block';
+            frame.src = url;
+            
+            // 當 iframe 載入完成後，自動將卷軸往下移動 50px
+            frame.onload = function() {
+                try {
+                    // 嘗試滾動 iframe 內部的視窗（若該新聞網站允許跨域存取）
+                    frame.contentWindow.scrollBy(0, 50);
+                } catch (e) {
+                    // 若受瀏覽器跨域安全限制，則改為將外層頁面往下滾動 50px 讓畫面精準對齊
+                    window.scrollTo({ top: 50, behavior: 'smooth' });
+                }
+            };
         }
 
-        // 切換回清單，也自動滾動到最上方
         function backToList() {
-            document.getElementById('news-frame').style.display = 'none';   // 隱藏新聞視窗
-            document.getElementById('news-frame').src = '';                 // 清空網址
-            document.getElementById('list-area').style.display = 'block';   // 顯示清單
-            
-            // 回到清單頂部
+            const frame = document.getElementById('news-frame');
+            frame.style.display = 'none';
+            frame.src = '';
+            document.getElementById('list-area').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
